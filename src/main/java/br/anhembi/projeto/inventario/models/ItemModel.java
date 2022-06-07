@@ -1,7 +1,7 @@
 package br.anhembi.projeto.inventario.models;
 
-import java.util.Date;
-import java.util.Calendar;
+//import java.util.Date;
+//import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,8 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+//import javax.persistence.Temporal;
+//import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -27,17 +27,17 @@ public class ItemModel {
     @Column(name = "tipo", length = 50, nullable = false)
     private String tipo;
 
-    @Column(name = "date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = false)
+    @Column(name = "date", nullable = false)
     private String date;
 
     @Column(name = "lote", nullable = false)
     private String lote;
 
-    @Temporal(TemporalType.DATE)
-    private Calendar vencimento;
+    //@Temporal(TemporalType.DATE)
+    //private Calendar vencimento;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dataEnvio;
+    //@Temporal(TemporalType.TIMESTAMP)
+    //private Date dataEnvio;
 
     @Column(name = "quantity", length = 50, nullable = false)
     private long quantity;
@@ -82,21 +82,21 @@ public class ItemModel {
         this.lote = lote;
     }
 
-    public Calendar getVencimento() {
-        return vencimento;
-    }
+    // public Calendar getVencimento() {
+    //     return vencimento;
+    // }
 
-    public void setVencimento(Calendar vencimento) {
-        this.vencimento = vencimento;
-    }
+    // public void setVencimento(Calendar vencimento) {
+    //     this.vencimento = vencimento;
+    // }
 
-    public Date getDataEnvio() {
-        return dataEnvio;
-    }
+    // public Date getDataEnvio() {
+    //     return dataEnvio;
+    // }
 
-    public void setDataEnvio(Date dataEnvio) {
-        this.dataEnvio = dataEnvio;
-    }
+    // public void setDataEnvio(Date dataEnvio) {
+    //     this.dataEnvio = dataEnvio;
+    // }
 
     public long getQuantity() {
         return quantity;

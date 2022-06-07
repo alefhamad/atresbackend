@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,6 +44,17 @@ public class ItemController {
 
     }
 
+    @GetMapping("/api/items/search/{id}")
+    public ResponseEntity<ItemModel> findItem(@PathVariable long id) {
+        ItemModel item = itemRepo.findById(id);
+        if (item == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(item);
+    }
+
+    
+
     @GetMapping("/api/items/count")
     public ArrayList<ItemModel> getQuantity() {
             ArrayList<ItemModel> listItems = (ArrayList<ItemModel>) itemRepo.findAll();
@@ -55,6 +69,8 @@ public class ItemController {
                     }
                 }
                 item.setQuantity(count);
+                //save item to the database
+                itemRepo.save(item);
             }
             return listItems;
     }
@@ -70,9 +86,36 @@ public class ItemController {
             itemRecebido.setIsAssigned(false);
         }
         itemRepo.save(itemRecebido);
+        
         return ResponseEntity.ok(itemRecebido);
         
     }
 
+    @PutMapping("/api/items/update/{id}")
+    //with the received item id, update the item in the database with the received body
+    public ResponseEntity<ItemModel> updateItem(@RequestBody ItemModel itemRecebido, @PathVariable long id) {
+        ItemModel item = itemRepo.findById(id);
+        item.setTipo(itemRecebido.getTipo());
+        item.setLote(itemRecebido.getLote());
+        item.setDate(itemRecebido.getDate());
+        item.setPaciente(itemRecebido.getPaciente());
+        itemRepo.save(item);
+        return ResponseEntity.ok(item);
+    }
 
+    @DeleteMapping("/api/items/delete/{id}")
+    public ResponseEntity<ItemModel> deleteItem(@PathVariable long id) {
+        ItemModel item = itemRepo.findById(id);
+        if (item == null) {
+            return ResponseEntity.notFound().build();
+        }
+        itemRepo.delete(item);
+        return ResponseEntity.ok(item);
+    }
+
+    @DeleteMapping("/api/items/deleteAll")
+    public ResponseEntity<ItemModel> deleteAllItems() {
+        itemRepo.deleteAll();
+        return ResponseEntity.ok().build();
+    }
 }

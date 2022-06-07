@@ -37,7 +37,7 @@ public class PacienteController {
         return listPacientes;
     }
 
-    @GetMapping("/pacientes/{cpf}")
+    @GetMapping("/pacientes/search/cpf/{cpf}")
     //get paciente from database and return it if it the received token is valid
     public ResponseEntity<PacienteModel> getPaciente(@PathVariable String cpf) {
         
@@ -88,4 +88,6 @@ public class PacienteController {
         return ResponseEntity.ok(updatedPaciente);
     }
 
+    
+    
 }
