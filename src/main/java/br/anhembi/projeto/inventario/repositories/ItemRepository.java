@@ -11,4 +11,5 @@ public interface ItemRepository extends CrudRepository<ItemModel, Long> {
     public ItemModel findById(long id);
 
     public ItemModel findByTipo(String tipo);
+
 }

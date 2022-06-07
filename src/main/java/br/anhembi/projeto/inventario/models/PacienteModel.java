@@ -26,7 +26,7 @@ public class PacienteModel {
     @Column(name = "cpf", length = 11, nullable = false, unique = true)
     private String cpf;
 
-    @OneToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY , mappedBy = "paciente")
     private List<ItemModel> items;
 
     public long getId() {
